@@ -63,10 +63,8 @@
         }
       });
 
-      _this.eventEmitter.subscribe('windowRemoved', function(event, windowId) {
-        _this.windows = jQuery.grep(_this.windows, function(window) {
-          return window.id !== windowId;
-        });
+      _this.eventEmitter.subscribe('REMOVE_WINDOW', function(event, windowId) {
+        _this.removeWindow(node);
       });
 
       _this.eventEmitter.subscribe('REMOVE_NODE', function(event, node){
@@ -186,7 +184,7 @@
         slot = slotMap[d.id];
 
         if (slot && slot.window && !resetting) {
-          _this.eventEmitter.publish("windowRemoved", slot.window.id);
+          _this.eventEmitter.publish("REMOVE_WINDOW", slot.window.id);
         }
 
         // nullify the window parameter of old slots
@@ -334,6 +332,13 @@
       _this.split(targetSlot, 'd');
     },
 
+    removeWindow: function(windowId) {
+      var _this = this;
+      _this.windows = jQuery.grep(_this.windows, function(window) {
+        return window.id !== windowId;
+      });
+    },
+
     removeNode: function(targetSlot) {
       // de-mutate the tree structure.
       var _this = this,
@@ -414,7 +419,7 @@
         // function because we need the other windows to remain,
         // so we filter them here.
         _this.windows.splice(0, _this.windows.length -_this.slots.length).forEach(function(removedWindow){
-          _this.eventEmitter.publish('windowRemoved', removedWindow.id);
+          _this.eventEmitter.publish('REMOVE_WINDOW', removedWindow.id);
         });
       }
 
