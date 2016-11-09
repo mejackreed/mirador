@@ -5,7 +5,8 @@ before_install:
 - npm install
 - npm install -g bower
 - bower install
-# before-script:
+before-script:
+  - phantomjs --version
 # - grunt test cover
 script:
 - npm run travis
