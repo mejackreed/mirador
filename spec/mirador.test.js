@@ -31,6 +31,7 @@ describe('Mirador | mirador.js', function() {
   describe('Initialization', function() {
     beforeAll(function(done) {
       startMirador(done, this);
+      console.log(this)
     });
     afterAll(function() {
       jQuery(window).unbind('resize');
@@ -40,11 +41,13 @@ describe('Mirador | mirador.js', function() {
     });
 
     it('should render manifest list items', function() {
+      console.log(this)
       console.log(this.mirador.viewer.manifestsPanel.manifestListItems.length)
       expect(this.mirador.viewer.manifestsPanel.manifestListItems.length).toBe(2);
     });
 
     it('should start Mirador as blank workspace', function() {
+      console.log(this)
       expect(this.mirador.viewer).toBeDefined();
     });
 
