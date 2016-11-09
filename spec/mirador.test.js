@@ -6,10 +6,6 @@ describe('Mirador | mirador.js', function() {
     testContext.viewerDiv.attr('id', 'viewer');
     testContext.viewerDiv.appendTo('body');
 
-    setTimeout(function() {
-      done();
-    }, 2000);
-
     testContext.mirador = Mirador({
       id: 'viewer',
       layout: "1x2",
@@ -24,6 +20,10 @@ describe('Mirador | mirador.js', function() {
         "location": "Stanford University",
         "title": "Walters"
       }]
+    });
+
+    testContext.mirador.eventEmitter.subscribe('manifestListItemRendered', function() {
+      done();
     });
   }
 
